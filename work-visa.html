@@ -685,6 +685,165 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       }
     }
 
+    /* Mobile menu button styles */
+    .md\:hidden {
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      .md\:hidden {
+        display: none;
+      }
+    }
+
+    #menu-toggle {
+      color: #374151;
+      transition: color 0.3s;
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    #menu-toggle:hover {
+      color: hsl(207 77% 54%);
+      background-color: #f3f4f6;
+    }
+
+    #mobile-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      transition: all 0.28s ease-in-out;
+      z-index: 50;
+      opacity: 0;
+      transform: translateY(-1rem);
+      visibility: hidden;
+    }
+
+    /* When "open" show menu (keeps your colours/layout) */
+    #mobile-menu.open,
+    /* support old toggle if you prefer 'opacity-100' class */
+    #mobile-menu.opacity-100 {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    .menu-content {
+      padding: 1.5rem;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.125rem;
+      transition: all 0.2s;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+
+    .menu-item.active {
+      color: hsl(207 77% 54%);
+    }
+
+    .submenu {
+      padding-left: 1.5rem;
+      margin: 0.5rem 0;
+      display: none;
+    }
+
+    .submenu.active {
+      display: block;
+    }
+
+    .submenu-item {
+      display: block;
+      padding: 0.6rem 1rem;
+      text-decoration: none;
+      color: #4b5563;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .submenu-item:hover {
+      color: hsl(207 77% 54%);
+      background-color: #f3f4f6;
+    }
+
+    .submenu-item.active {
+      color: hsl(207 77% 54%);
+      background-color: rgba(142, 71%, 45%, 0.1);
+      font-weight: 600;
+    }
+
+    .menu-divider {
+      height: 1px;
+      background-color: #e5e7eb;
+      margin: 1rem 0;
+    }
+
+    .action-button {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 1rem;
+      color: hsl(207 77% 54%);
+      border: none;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .action-button:hover {
+      background-color: hsl(207 77% 54%);
+    }
+
+    /* small helper for rotating arrow */
+    .rotate-180 {
+      transform: rotate(180deg);
+      transition: transform 0.18s;
+    }
+
+    /* keep layout stable: ensure nav container doesn't overlay desktop */
+    header {
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #374151;
+      /* Tailwind gray-700 */
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #dc2626;
+      /* Tailwind red-600 */
+    }
+
     .sr-only {
       position: absolute;
       width: 1px;
@@ -2682,24 +2841,26 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
 
     .scroll-reveal-left,
-.scroll-reveal-right {
-  opacity: 0;
-  transition: all 0.6s ease;
-}
+    .scroll-reveal-right {
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
 
-.scroll-reveal-left {
-  transform: translateX(-20px); /* Slide in from left */
-}
+    .scroll-reveal-left {
+      transform: translateX(-20px);
+      /* Slide in from left */
+    }
 
-.scroll-reveal-right {
-  transform: translateX(20px); /* Slide in from right */
-}
+    .scroll-reveal-right {
+      transform: translateX(20px);
+      /* Slide in from right */
+    }
 
-.scroll-reveal-left.active,
-.scroll-reveal-right.active {
-  opacity: 1;
-  transform: translateX(0);
-}
+    .scroll-reveal-left.active,
+    .scroll-reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
 
     .scroll-reveal-left.revealed {
       opacity: 1;
@@ -4473,13 +4634,48 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                   d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
                 </path>
               </svg>
-            </div><button class="lg:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" class="lucide lucide-menu w-6 h-6">
-                <line x1="4" x2="20" y1="12" y2="12"></line>
-                <line x1="4" x2="20" y1="6" y2="6"></line>
-                <line x1="4" x2="20" y1="18" y2="18"></line>
-              </svg></button>
+            </div>
+            <div class="md:hidden">
+              <button id="menu-toggle"
+                class="text-gray-700 hover:text transition-colors p-2 rounded-md hover:bg-gray-100"
+                aria-label="Toggle mobile menu" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-menu h-6 w-6" aria-hidden="true">
+                  <path d="M4 12h16"></path>
+                  <path d="M4 18h16"></path>
+                  <path d="M4 6h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div id="mobile-menu" class="md:hidden">
+              <button id="close-menu" class="close-btn">✕</button>
+              <div class="menu-content mt-12 px-4">
+                <a class="menu-item" href="index.html">Home</a>
+
+                <div class="menu-item active" id="visa-services-toggle" style="cursor: pointer;">
+                  Visa Services
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-left: auto;">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+
+                <div class="submenu" id="visa-services-submenu">
+                  <a href="work-visa.html" class="submenu-item active">Work Visa</a>
+                  <a href="study-visa.html" class="submenu-item">Study Visa</a>
+                  <a href="tourist-visa.html" class="submenu-item">Tourist Visa</a>
+                </div>
+                <a class="menu-item" href="about.html">About Us</a>
+                <a class="menu-item" href="contact.html">Contact Us</a>
+                <div class="menu-divider"></div>
+
+                <div>
+                  <button class="action-button">+91 9904774455</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </header>
@@ -5143,26 +5339,87 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   </script>
 
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const revealElements = document.querySelectorAll('.scroll-reveal-left, .scroll-reveal-right');
+    document.addEventListener('DOMContentLoaded', function () {
+      const revealElements = document.querySelectorAll('.scroll-reveal-left, .scroll-reveal-right');
 
-    function revealOnScroll() {
-      const windowHeight = window.innerHeight;
+      function revealOnScroll() {
+        const windowHeight = window.innerHeight;
 
-      revealElements.forEach(el => {
-        const elementTop = el.getBoundingClientRect().top;
+        revealElements.forEach(el => {
+          const elementTop = el.getBoundingClientRect().top;
 
-        if (elementTop < windowHeight - 50) {
-          el.classList.add('active');
-        }
+          if (elementTop < windowHeight - 50) {
+            el.classList.add('active');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll();  // Run once on page load
+    });
+  </script>
+
+  <script>
+    const toggleBtn = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const closeBtn = document.getElementById("close-menu");
+    const visaServicesToggle = document.getElementById("visa-services-toggle");
+    const visaServicesSubmenu = document.getElementById("visa-services-submenu");
+
+    // Toggle menu open/close using a single class 'open'
+    toggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle("open");
+      const expanded = mobileMenu.classList.contains("open");
+      toggleBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+    });
+
+    // ✅ Close menu with close button
+    closeBtn.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+      toggleBtn.setAttribute("aria-expanded", "false");
+    });
+
+
+    // Submenu toggle
+    visaServicesToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      visaServicesSubmenu.classList.toggle("active");
+      const arrowIcon = visaServicesToggle.querySelector('svg');
+      if (arrowIcon) arrowIcon.classList.toggle('rotate-180');
+    });
+
+    // Highlight submenu item when clicked
+    const submenuItems = document.querySelectorAll(".submenu-item");
+    submenuItems.forEach(item => {
+      item.addEventListener("click", (e) => {
+        // remove active from all
+        submenuItems.forEach(i => i.classList.remove("active"));
+        // add active to clicked one
+        e.currentTarget.classList.add("active");
       });
-    }
+    });
 
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll();  // Run once on page load
-  });
-</script>
+    // Close when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!mobileMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
+        mobileMenu.classList.remove('open');
+        visaServicesSubmenu.classList.remove('active');
+        const arrowIcon = visaServicesToggle.querySelector('svg');
+        if (arrowIcon) arrowIcon.classList.remove('rotate-180');
+        toggleBtn.setAttribute("aria-expanded", "false");
+      }
+    });
 
+    // Optional: close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        mobileMenu.classList.remove('open');
+        visaServicesSubmenu.classList.remove('active');
+        toggleBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+  </script>
 
 
 </body>

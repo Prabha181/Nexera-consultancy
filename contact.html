@@ -678,11 +678,184 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       padding-left: 2rem;
     }
 
+
     @media (min-width: 1400px) {
 
       .container {
         max-width: 1400px;
       }
+    }
+
+
+    /* Mobile menu button styles */
+    .md\:hidden {
+      display: block;
+    }
+
+    @media (min-width: 768px) {
+      .md\:hidden {
+        display: none;
+      }
+    }
+
+    #menu-toggle {
+      color: #374151;
+      transition: color 0.3s;
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    #menu-toggle:hover {
+      color: hsl(207 77% 54%);
+      background-color: #f3f4f6;
+    }
+
+    #mobile-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      border-top: 1px solid #e5e7eb;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      transition: all 0.28s ease-in-out;
+      z-index: 50;
+      opacity: 0;
+      transform: translateY(-1rem);
+      visibility: hidden;
+    }
+
+    /* When "open" show menu (keeps your colours/layout) */
+    #mobile-menu.open,
+    /* support old toggle if you prefer 'opacity-100' class */
+    #mobile-menu.opacity-100 {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    .menu-content {
+      padding: 1.5rem;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.125rem;
+      transition: all 0.2s;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+
+    .menu-item.active {
+      color: hsl(207 77% 54%);
+    }
+
+    .submenu {
+      padding-left: 1.5rem;
+      margin: 0.5rem 0;
+      display: none;
+    }
+
+    .submenu.active {
+      display: block;
+    }
+
+    .submenu-item {
+      display: block;
+      padding: 0.6rem 1rem;
+      text-decoration: none;
+      color: #4b5563;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .submenu-item:hover {
+      color: hsl(207 77% 54%);
+      background-color: #f3f4f6;
+    }
+
+    .menu-divider {
+      height: 1px;
+      background-color: #e5e7eb;
+      margin: 1rem 0;
+    }
+
+    .action-button {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 1rem;
+      color: hsl(207 77% 54%);
+      border: none;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .action-button:hover {
+      background-color: hsl(207 77% 54%);
+    }
+
+    /* small helper for rotating arrow */
+    .rotate-180 {
+      transform: rotate(180deg);
+      transition: transform 0.18s;
+    }
+
+    /* keep layout stable: ensure nav container doesn't overlay desktop */
+    header {
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #374151;
+      /* Tailwind gray-700 */
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #dc2626;
+      /* Tailwind red-600 */
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    #overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
 
     .sr-only {
@@ -4424,7 +4597,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                 class="h-12 w-auto transition-transform duration-300 group-hover:scale-105"></a>
             <nav class="hidden lg:flex items-center space-x-8"><a
                 class="hover:text-primary transition-all duration-300 font-medium relative group"
-                href="index.html"><span>Home</span><span
+                href="home.html"><span>Home</span><span
                   class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span></a>
               <div class="relative group"><button
                   class="flex items-center space-x-1 hover:text-primary transition-all duration-300 font-medium"><span>Visa</span><svg
@@ -4460,16 +4633,54 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                   d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
                 </path>
               </svg>
-            </div><button class="lg:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" class="lucide lucide-menu w-6 h-6">
-                <line x1="4" x2="20" y1="12" y2="12"></line>
-                <line x1="4" x2="20" y1="6" y2="6"></line>
-                <line x1="4" x2="20" y1="18" y2="18"></line>
-              </svg></button>
+            </div>
+            <div class="md:hidden">
+              <button id="menu-toggle"
+                class="text-gray-700 hover:text-greenvolt-green transition-colors p-2 rounded-md hover:bg-gray-100"
+                aria-label="Toggle mobile menu" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-menu h-6 w-6" aria-hidden="true">
+                  <path d="M4 12h16"></path>
+                  <path d="M4 18h16"></path>
+                  <path d="M4 6h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div id="mobile-menu" class="md:hidden">
+              <button id="close-menu" class="close-btn">✕</button>
+              <div class="menu-content mt-12 px-4">
+                <a class="menu-item" href="index.html">Home</a>
+
+                <div class="menu-item" id="visa-services-toggle" style="cursor: pointer;">
+                  Visa Services
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    style="margin-left: auto;">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+
+                <div class="submenu" id="visa-services-submenu">
+                  <a href="work-visa.html" class="submenu-item">Work Visa</a>
+                  <a href="study-visa.html" class="submenu-item">Study Visa</a>
+                  <a href="tourist-visa.html" class="submenu-item">Tourist Visa</a>
+                </div>
+
+                <a class="menu-item" href="about.html">About Us</a>
+                <a class="menu-item active" href="contact.html">Contact Us</a>
+
+                <div class="menu-divider"></div>
+
+                <div>
+                  <button class="action-button">+91 9904774455</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </header>
+      <div id="overlay"></div>
       <main class="flex-1">
         <div class="min-h-screen page-enter">
           <section class="relative py-24 bg-cover bg-center bg-no-repeat"
@@ -4477,7 +4688,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
             <div class="container mx-auto px-4 text-center text-white">
               <h1 class="text-4xl md:text-6xl font-bold mb-4">Contact Us</h1>
               <div class="flex items-center justify-center space-x-2 text-lg"><a class="text-blue-300 hover:underline"
-                  href="index.html">Home</a><span>/</span><span>Contact Us</span></div>
+                  href="home.html">Home</a><span>/</span><span>Contact Us</span></div>
             </div>
           </section>
           <section class="py-20 bg-white">
@@ -4709,7 +4920,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
             <div>
               <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
               <ul class="space-y-2">
-                <li><a class="text-gray-400 hover:text-white transition-colors" href="index.html">Home</a></li>
+                <li><a class="text-gray-400 hover:text-white transition-colors" href="home.html">Home</a></li>
                 <li><a class="text-gray-400 hover:text-white transition-colors" href="about.html">About Us</a></li>
                 <li><a class="text-gray-400 hover:text-white transition-colors" href="contact.html">Contact Us</a></li>
                 <li><a class="text-gray-400 hover:text-white transition-colors"
@@ -4785,6 +4996,56 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
       window.addEventListener('scroll', revealElements);
       revealElements();
+    });
+  </script>
+
+  <script>
+    const toggleBtn = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const closeBtn = document.getElementById("close-menu");
+    const visaServicesToggle = document.getElementById("visa-services-toggle");
+    const visaServicesSubmenu = document.getElementById("visa-services-submenu");
+
+    // Toggle menu open/close using a single class 'open'
+    toggleBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mobileMenu.classList.toggle("open");
+      const expanded = mobileMenu.classList.contains("open");
+      toggleBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+    });
+
+    // ✅ Close menu with close button
+    closeBtn.addEventListener("click", () => {
+      mobileMenu.classList.remove("open");
+      toggleBtn.setAttribute("aria-expanded", "false");
+    });
+
+    // Submenu toggle
+    visaServicesToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      visaServicesSubmenu.classList.toggle("active");
+      const arrowIcon = visaServicesToggle.querySelector('svg');
+      if (arrowIcon) arrowIcon.classList.toggle('rotate-180');
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!mobileMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
+        mobileMenu.classList.remove('open');
+        visaServicesSubmenu.classList.remove('active');
+        const arrowIcon = visaServicesToggle.querySelector('svg');
+        if (arrowIcon) arrowIcon.classList.remove('rotate-180');
+        toggleBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    // Optional: close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        mobileMenu.classList.remove('open');
+        visaServicesSubmenu.classList.remove('active');
+        toggleBtn.setAttribute("aria-expanded", "false");
+      }
     });
   </script>
 
